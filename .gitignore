@@ -1,6 +1,35 @@
+# --- Logs and debug info ---
+*.log
+npm-debug.log*
+pm2.log*
+logs/
+.pids
+pm2_logs/
+
+# --- Node modules ---
+node_modules/
+
+# --- OS-specific files ---
+.DS_Store
+Thumbs.db
+
+# --- Env files & tokens ---
+.env
+.env.*        # e.g., .env.test, .env.production
+backend/src/tokens.json
+backend/.env
+backend/.env.test
+backend/.env.tet
+# --- Ecosystem config ---
+ecosystem.config.js
+
+# --- Build outputs (if any) ---
+dist/
+build/
 node_modules/
 *.log
 .env
 *.log
 .idea/
 .DS_Store
+

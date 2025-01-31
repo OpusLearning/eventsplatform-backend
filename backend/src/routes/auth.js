@@ -15,6 +15,12 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Debug: show whether JWT_SECRET is actually set
 console.log("[DEBUG] auth.js => JWT_SECRET:", JWT_SECRET);
 
+// Health check route
+router.get("/health", (req, res) => {
+  res.status(200).json({ message: "API is healthy" });
+});
+
+
 if (!JWT_SECRET) {
   throw new Error("JWT_SECRET must be set in environment variables");
 }
