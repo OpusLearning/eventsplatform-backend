@@ -9,7 +9,7 @@ Staff management tools – Admins can create, edit, and manage events.
 Tech Stack
 Frontend: React Native (JavaScript) 
 **please see front end repo for more details https://github.com/OpusLearning/events-platform-frontend**
-Backend: Node.js (Express) ** see READMEbackend.md in backend folder**
+Backend: Node.js (Express) **see READMEbackend.md here https://github.com/OpusLearning/events-platform-backend-new/blob/backup-before-reset/backend/READMEbackend.md**
 Calendar Integration: Google Calendar API
 Authentication: Google OAuth
 Google Calendar Integration (Testing Phase)
