@@ -7,12 +7,14 @@ Sign up for events – Register for events directly through the platform.
 Add events to Google Calendar – Seamlessly integrate events with your personal calendar.
 Staff management tools – Admins can create, edit, and manage events.
 Tech Stack
-Frontend: React Native (JavaScript)
+Frontend: React Native (JavaScript) 
+please see front end repo for more details https://github.com/OpusLearning/events-platform-frontend
 Backend: Node.js (Express)
 Calendar Integration: Google Calendar API
 Authentication: Google OAuth
 Google Calendar Integration (Testing Phase)
 The Google Calendar integration requires sensitive OAuth scopes, meaning only approved testers can use it during the MVP phase.
+
 
 How to Become a Tester
 If you’d like to test Google Calendar event creation, you must be manually added to the Google Cloud project.
