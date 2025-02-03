@@ -5,9 +5,6 @@ const JWT_SECRET = process.env.JWT_SECRET || "dummy_jwt_secret";
 console.log("[DEBUG] authMiddleware.js loaded");
 console.log("[DEBUG] JWT_SECRET is", JWT_SECRET ? "SET" : "NOT SET");
 
-
-
-// Middleware to Authenticate JWT
 function authenticateJWT(req, res, next) {
     const authHeader = req.headers.authorization;
     console.log("[DEBUG] Incoming request headers:", req.headers);
@@ -33,14 +30,12 @@ function authenticateJWT(req, res, next) {
         return res.status(403).json({ error: "Forbidden: Missing role in token." });
       }
   
-      req.user = decodedUser; // Assign the user to request object
+      req.user = decodedUser; 
       console.log("[DEBUG] User assigned to req.user:", req.user);
       next();
     });
   }
   
-
-// Middleware to Authorize Roles
 function authorizeRoles(...allowedRoles) {
     return (req, res, next) => {
       console.log("[DEBUG] Checking user role:", req.user);

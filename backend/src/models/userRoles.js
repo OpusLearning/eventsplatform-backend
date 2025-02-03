@@ -1,8 +1,6 @@
 // backend/src/models/userRoles.js
-
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-
 const UserRoles = sequelize.define(
   "UserRoles",
   {
@@ -28,5 +26,4 @@ const UserRoles = sequelize.define(
     timestamps: false,      // Disable timestamps for join table
   }
 );
-
 module.exports = UserRoles;

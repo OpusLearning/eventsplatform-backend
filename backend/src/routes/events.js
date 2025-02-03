@@ -37,6 +37,7 @@ router.get("/", async (req, res) => {
 });
 
 // ✅ Create a New Event (Admin Only)
+// Create a New Event (Admin Only)
 router.post(
   "/",
   authenticateJWT,
@@ -45,23 +46,26 @@ router.post(
     body("title").notEmpty().withMessage("Title is required"),
     body("date").isISO8601().withMessage("Valid date is required"),
     body("location").notEmpty().withMessage("Location is required"),
+    // imageUrl is optional; no extra validation unless you want to check for URL format
   ],
   async (req, res) => {
     console.log("[DEBUG] POST /api/events called");
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error("[ERROR] Validation failed:", errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
-
     try {
-      const { title, date, location } = req.body;
+      const { title, date, location, imageUrl } = req.body;
       console.log(`[DEBUG] Creating Event: ${title} on ${date} at ${location}`);
-
-      const newEvent = await Event.create({ title, date, location });
+      // Save imageUrl if provided; otherwise, store null.
+      const newEvent = await Event.create({ 
+        title, 
+        date, 
+        location, 
+        imageUrl: imageUrl || null 
+      });
       console.log("[DEBUG] Event Created:", newEvent);
-
       res.status(201).json({
         message: "Event created successfully",
         event: newEvent,
@@ -72,6 +76,7 @@ router.post(
     }
   }
 );
+
 
 // ✅ Sign Up a User for an Event
 router.post(
@@ -123,12 +128,12 @@ router.post(
 );
 
 // ✅ Edit (Update) an Event (Admin Only)
+// Edit (Update) an Event (Admin Only)
 router.put(
   "/:id",
   authenticateJWT,
   authorizeRoles("admin"),
   [
-    // Only validate if fields are provided
     body("title")
       .optional()
       .notEmpty()
@@ -141,33 +146,29 @@ router.put(
       .optional()
       .notEmpty()
       .withMessage("Location cannot be empty if provided"),
+    // imageUrl is optional; add validation if necessary.
   ],
   async (req, res) => {
     console.log("[DEBUG] PUT /api/events/:id called");
     const eventId = req.params.id;
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error("[ERROR] Validation failed:", errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
-
     try {
       const event = await Event.findByPk(eventId);
       if (!event) {
         console.error(`[ERROR] Event with ID ${eventId} not found`);
         return res.status(404).json({ error: "Event not found" });
       }
-
-      // Update only the provided fields
-      const { title, date, location } = req.body;
+      const { title, date, location, imageUrl } = req.body;
       if (title !== undefined) event.title = title;
       if (date !== undefined) event.date = date;
       if (location !== undefined) event.location = location;
-
+      if (imageUrl !== undefined) event.imageUrl = imageUrl;
       await event.save();
       console.log("[DEBUG] Event updated:", event);
-
       res.json({ message: "Event updated successfully", event });
     } catch (error) {
       console.error("[ERROR] Event update failed:", error);
@@ -175,6 +176,7 @@ router.put(
     }
   }
 );
+
 
 // ✅ Delete an Event (Admin Only)
 router.delete(
@@ -202,5 +204,52 @@ router.delete(
     }
   }
 );
+
+// 
+router.get(
+  '/signedup',
+  authenticateJWT,
+  async (req, res) => {
+    try {
+      const userId = req.user.id;
+      // Assuming your SignUp model has a foreign key "UserId" and is associated with the Event model
+      const signups = await SignUp.findAll({
+        where: { UserId: userId },
+        include: [Event],
+      });
+      // Map the signups to get the event details
+      const events = signups.map((signup) => signup.Event);
+      res.status(200).json(events);
+    } catch (error) {
+      console.error('Error fetching signed-up events:', error);
+      res.status(500).json({ error: 'Failed to fetch your events.' });
+    }
+  }
+);
+
+// Cancel registration for an event (for a signed-up user)
+router.delete(
+  '/signup/:eventId',
+  authenticateJWT,
+  async (req, res) => {
+    const userId = req.user.id;
+    const { eventId } = req.params;
+    try {
+      const signup = await SignUp.findOne({
+        where: { UserId: userId, EventId: eventId },
+      });
+      if (!signup) {
+        return res.status(404).json({ error: 'Registration not found for this event.' });
+      }
+      await signup.destroy();
+      res.status(200).json({ message: 'Registration cancelled successfully.' });
+    } catch (error) {
+      console.error('Error cancelling registration:', error);
+      res.status(500).json({ error: 'Failed to cancel registration.' });
+    }
+  }
+);
+
+
 
 module.exports = router;

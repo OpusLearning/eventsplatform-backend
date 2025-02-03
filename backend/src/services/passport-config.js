@@ -6,7 +6,6 @@ const { User, Role } = require("../models");
 
 const configurePassport = (app) => {
   if (process.env.NODE_ENV === "test") {
-    // Mock Google OAuth Strategy for testing
     passport.use(
       new GoogleStrategy(
         {
@@ -30,7 +29,6 @@ const configurePassport = (app) => {
       )
     );
 
-    // Mock JWT Strategy for testing
     const jwtOptions = {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: "mockJwtSecret",
@@ -43,7 +41,7 @@ const configurePassport = (app) => {
             id: 1,
             name: "Test User",
             email: "testuser@example.com",
-            roles: ["user"], // Mock roles
+            roles: ["user"], 
           });
         } else {
           return done(null, false);

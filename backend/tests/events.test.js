@@ -8,9 +8,7 @@ const { sequelize, Event, User } = require("../src/models");
 beforeAll(async () => {
   try {
     await sequelize.sync({ force: true });
-    // Seed a test user
     await User.create({ id: 1, name: "Test User", email: "testuser@example.com" });
-    // Seed a test event
     await Event.create({
       id: 100,
       title: "Sample Event",

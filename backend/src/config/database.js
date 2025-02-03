@@ -1,5 +1,4 @@
 const { Sequelize } = require("sequelize");
-
 // SQLite con
 const sequelize = new Sequelize({
   dialect: "sqlite",

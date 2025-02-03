@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const app = require("../src/app");
 const { sequelize, User } = require("../src/models");
 
-// Mocking Google OAuth Strategy
+
 jest.mock("passport-google-oauth20", () => {
   const Strategy = function (options, verify) {
     this.name = "google";
@@ -15,7 +15,7 @@ jest.mock("passport-google-oauth20", () => {
         emails: [{ value: "testuser@example.com" }],
       };
 
-      // Simulate the verify callback
+
       verify(
         "mockAccessToken",
         "mockRefreshToken",
@@ -48,8 +48,8 @@ beforeAll(async () => {
       id: 1,
       name: "Test User",
       email: "testuser@example.com",
-      password: await bcrypt.hash("dummyPassword", 10), // Add hashed password
-      role: "user", // Including role for role-based access control
+      password: await bcrypt.hash("dummyPassword", 10),
+      role: "user", 
     });
   } catch (error) {
     console.error("Error during database setup (auth.test.js):", error);

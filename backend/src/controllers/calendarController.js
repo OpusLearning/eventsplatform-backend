@@ -51,8 +51,7 @@ const authGoogle = (req, res) => {
  * - Writes tokens to a JSON file (tokens.json).
  * - If Google does not send a new refresh token but we have an old one on file,
  *   we merge the old refresh token so we retain offline access.
- */
-const handleGoogleCallback = async (req, res) => {
+ */const handleGoogleCallback = async (req, res) => {
   const { code } = req.query;
   console.log("[DEBUG] Received Google Auth Code:", code);
 
@@ -73,7 +72,6 @@ const handleGoogleCallback = async (req, res) => {
     // If there is no new refresh token, attempt to reuse an existing one
     if (!tokens.refresh_token) {
       console.log("[INFO] No new refresh_token from Google. Attempting to reuse stored token if available.");
-
       if (fs.existsSync(TOKEN_PATH)) {
         try {
           const existingTokens = JSON.parse(fs.readFileSync(TOKEN_PATH, "utf8"));
@@ -83,7 +81,7 @@ const handleGoogleCallback = async (req, res) => {
           }
         } catch (readErr) {
           console.error("[ERROR] Could not read existing tokens file:", readErr);
-          // We can continue, but the user may have to re-auth if the token expires without a refresh token
+          // Proceed without a new refresh token
         }
       }
     }
@@ -97,7 +95,7 @@ const handleGoogleCallback = async (req, res) => {
     // Set credentials on the OAuth2 client
     oauth2Client.setCredentials(tokens);
 
-    // Save tokens to file (for a real application, consider encrypting or storing in DB)
+    // Save tokens to file (or database)
     try {
       fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens, null, 2));
       console.log("[DEBUG] Tokens successfully saved to:", TOKEN_PATH);
@@ -106,13 +104,16 @@ const handleGoogleCallback = async (req, res) => {
       return res.status(500).json({ error: "Failed to save OAuth tokens" });
     }
 
-    return res.send("Google Calendar authentication successful! You can now add events.");
+    // Redirect to the front-end CalendarSuccess page.
+    // WARNING: The "Add to Google Calendar" feature is currently in beta.
+    // Users must be on our Google Cloud whitelist for this feature to work.
+    // Please contact james.william.wallace@gmail.com for details.
+    return res.redirect(`${process.env.FRONTEND_URL}/calendar-success`);
   } catch (error) {
     console.error("[ERROR] Google Auth Callback failed:", error);
     return res.status(500).json({ error: "Google authentication failed" });
   }
 };
-
 /**
  * Step 3: Add an Event to Google Calendar
  * - Reads tokens from local file (tokens.json) and uses them to call the Calendar API.

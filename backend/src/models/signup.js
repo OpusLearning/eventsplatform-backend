@@ -1,7 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-
-// SignUp model
 const SignUp = sequelize.define(
   "SignUp",
   {
@@ -23,7 +21,7 @@ const SignUp = sequelize.define(
     },
   },
   {
-    timestamps: true, // Automatically add `createdAt` and `updatedAt` fields
+    timestamps: true, 
   }
 );
 

@@ -1,4 +1,3 @@
-// backend/src/utils/logger.js
 
 const { createLogger, format, transports } = require("winston");
 
@@ -17,7 +16,6 @@ const logger = createLogger({
   ],
 });
 
-// If not in production, log to the console as well
 if (process.env.NODE_ENV !== "production") {
   logger.add(
     new transports.Console({

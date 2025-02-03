@@ -1,5 +1,7 @@
+// models/event.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+
 const Event = sequelize.define("Event", {
   title: {
     type: DataTypes.STRING,
@@ -13,5 +15,10 @@ const Event = sequelize.define("Event", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  imageUrl: {
+    type: DataTypes.STRING,  // New column for image URL
+    allowNull: true,
+  },
 });
+
 module.exports = Event;
