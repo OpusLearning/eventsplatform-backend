@@ -1,13 +1,31 @@
 /**
  * routes/events.js
  *
- * Provides a complete set of routes for managing events:
- * - GET   /api/events          : Fetch all events (public)
- * - POST  /api/events          : Create a new event (admin only)
- * - POST  /api/events/signup   : Sign up a user for an event
- * - PUT   /api/events/:id      : Edit (update) an existing event (admin only)
- * - DELETE /api/events/:id     : Remove an event from the local DB (admin only)
+ * This module provides a comprehensive suite of API endpoints for managing community events.
+ * It supports both public access for event discovery and secured administrative operations.
+ *
+ * Endpoint Overview:
+ *
+ * GET /api/events
+ *   - Retrieves a complete list of events available on the platform.
+ *     (Accessible to all users)
+ *
+ * POST /api/events
+ *   - Creates a new event entry in the system.
+ *     (Restricted to administrators)
+ *
+ * POST /api/events/signup
+ *   - Registers the authenticated user for a specified event.
+ *
+ * PUT /api/events/:id
+ *   - Updates the details of an existing event identified by its unique ID.
+ *     (Restricted to administrators)
+ *
+ * DELETE /api/events/:id
+ *   - Deletes an event from the database using its unique ID.
+ *     (Restricted to administrators)
  */
+
 
 const express = require("express");
 const { Event, User, SignUp } = require("../models");
@@ -19,12 +37,12 @@ const router = express.Router();
 
 console.log("[DEBUG] events.js is loaded");
 
-// ✅ Health Check Route
+
 router.get("/health", (req, res) => {
   res.status(200).json({ message: "Events API is running" });
 });
 
-// ✅ Fetch All Events (Public)
+
 router.get("/", async (req, res) => {
   try {
     console.log("[DEBUG] Fetching all events");
@@ -36,7 +54,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ Create a New Event (Admin Only)
+
 // Create a New Event (Admin Only)
 router.post(
   "/",
@@ -78,7 +96,7 @@ router.post(
 );
 
 
-// ✅ Sign Up a User for an Event
+
 router.post(
   "/signup",
   authenticateJWT,
@@ -127,7 +145,7 @@ router.post(
   }
 );
 
-// ✅ Edit (Update) an Event (Admin Only)
+
 // Edit (Update) an Event (Admin Only)
 router.put(
   "/:id",
