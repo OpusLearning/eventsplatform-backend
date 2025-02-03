@@ -24,7 +24,7 @@ A mobile platform for creating, sharing, and managing community events. This REA
 
 ## Overview
 
-The Events Platform is designed to facilitate community engagement by providing a seamless mobile experience for event creation, discovery, and management. With a focus on usability and integration, the platform empowers users to easily explore, register for, and synchronise events with their personal calendars. Administrative tools further enable staff to manage event details efficiently.
+The Events Platform is designed to facilitate community engagement by providing a platform for event creation, discovery, and management. With a focus on usability and integration, the platform empowers users to easily explore, register for, and synchronise events with their personal calendars. Administrative tools further enable staff to manage event details efficiently.
 
 ---
 
