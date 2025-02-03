@@ -1,5 +1,12 @@
 # Events Platform
 
+## 🎥 Walkthrough Video
+
+Watch the full demo of the Events Platform here:  
+[![Watch on YouTube](https://img.youtube.com/vi/MkjBc9YKjdg/0.jpg)](https://youtu.be/MkjBc9YKjdg)
+
+
+
 A mobile platform for creating, sharing, and managing community events. This README provides a comprehensive overview of the project, including its features, technical stack, and testing procedures for our Google Calendar integration. This document is intended for developers, testers, and administrators involved in the project.
 
 ---
