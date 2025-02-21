@@ -2,6 +2,13 @@
 
 ## 🎥 Walkthrough Video
 
+Quick Start
+Hosted Application: https://eventsplatform.online/
+Test Account Credentials:
+Username: testuser@example.com
+Password: REMOVED_SHARED_CREDENTIAL
+
+
 Watch the full demo of the Events Platform here:  
 [![Watch on YouTube](https://img.youtube.com/vi/MkjBc9YKjdg/0.jpg)](https://youtu.be/MkjBc9YKjdg)
 
