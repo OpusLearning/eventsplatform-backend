@@ -7,7 +7,7 @@ console.log("[DEBUG] JWT_SECRET is", JWT_SECRET ? "SET" : "NOT SET");
 
 function authenticateJWT(req, res, next) {
     const authHeader = req.headers.authorization;
-    console.log("[DEBUG] Incoming request headers:", req.headers);
+    console.log("[DEBUG] Authenticating incoming request");
   
     if (!authHeader) {
       console.error("[DEBUG] No Authorization header found.");
@@ -15,7 +15,7 @@ function authenticateJWT(req, res, next) {
     }
   
     const token = authHeader.split(" ")[1];
-    console.log("[DEBUG] Received token:", token);
+    console.log("[DEBUG] Bearer token received");
   
     jwt.verify(token, JWT_SECRET, (err, decodedUser) => {
       if (err) {

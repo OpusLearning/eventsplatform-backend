@@ -67,7 +67,7 @@ const authGoogle = (req, res) => {
     let { tokens } = response || {};
     if (!tokens) tokens = {};
 
-    console.log("[DEBUG] Tokens received from Google:", tokens);
+    console.log("[DEBUG] OAuth token exchange completed");
 
     // If there is no new refresh token, attempt to reuse an existing one
     if (!tokens.refresh_token) {
@@ -88,7 +88,7 @@ const authGoogle = (req, res) => {
 
     // Check if at least an access token is present
     if (!tokens.access_token) {
-      console.error("[ERROR] No access_token in token response:", tokens);
+      console.error("[ERROR] OAuth token response did not include an access token");
       return res.status(500).json({ error: "OAuth tokens missing from Google response" });
     }
 
@@ -107,7 +107,7 @@ const authGoogle = (req, res) => {
     // Redirect to the front-end CalendarSuccess page.
     // WARNING: The "Add to Google Calendar" feature is currently in beta.
     // Users must be on our Google Cloud whitelist for this feature to work.
-    // Please contact james.william.wallace@gmail.com for details.
+    // Please contact hello@jameswallace.tech for details.
     return res.redirect(`${process.env.FRONTEND_URL}/calendar-success`);
   } catch (error) {
     console.error("[ERROR] Google Auth Callback failed:", error);
@@ -120,7 +120,7 @@ const authGoogle = (req, res) => {
  */
 const addEvent = async (req, res) => {
   const { summary, description, startTime, endTime } = req.body;
-  console.log("[DEBUG] Add event request received:", req.body);
+  console.log("[DEBUG] Add event request received");
 
   // Ensure tokens are stored locally
   if (!fs.existsSync(TOKEN_PATH)) {
@@ -132,7 +132,7 @@ const addEvent = async (req, res) => {
   let tokens;
   try {
     tokens = JSON.parse(fs.readFileSync(TOKEN_PATH, "utf8"));
-    console.log("[DEBUG] Tokens loaded from file:", tokens);
+    console.log("[DEBUG] Stored OAuth credentials loaded");
   } catch (readErr) {
     console.error("[ERROR] Failed to read tokens file:", readErr);
     return res.status(500).json({ error: "Failed to load stored tokens" });

@@ -8,7 +8,11 @@ const payload = {
   roles: ["user"],
 };
 
-const secret = "REMOVED_ROTATE_REQUIRED"; // Must match JWT_SECRET used in tests and app
+const secret = process.env.JWT_SECRET;
+
+if (!secret) {
+  throw new Error("JWT_SECRET must be set before generating a development token");
+}
 
 const options = {
   expiresIn: "1h",

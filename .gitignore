@@ -13,13 +13,17 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# --- Env files & tokens ---
+# --- Env files, tokens and local data ---
 .env
-.env.*        # e.g., .env.test, .env.production
-backend/src/tokens.json
-backend/.env
-backend/.env.test
-backend/.env.tet
+.env.*
+!.env.example
+!.env.test.example
+**/tokens.json
+*.sqlite
+*.sqlite3
+*.db
+venv/
+.venv/
 # --- Ecosystem config ---
 ecosystem.config.js
 
@@ -28,8 +32,5 @@ dist/
 build/
 node_modules/
 *.log
-.env
-*.log
 .idea/
 .DS_Store
-

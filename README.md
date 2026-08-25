@@ -4,9 +4,8 @@
 
 Quick Start
 Hosted Application: https://eventsplatform.online/
-Test Account Credentials:
-Username: testuser@example.com
-Password: REMOVED_SHARED_CREDENTIAL
+No shared account credentials are published. Create local test accounts using
+non-production data.
 
 
 Watch the full demo of the Events Platform here:  
@@ -100,7 +99,7 @@ If you are interested in testing the Google Calendar event creation feature, ple
 
 1. **Request Access**  
    Email your request to:  
-   **james.william.wallace@gmail.com**
+   **hello@jameswallace.tech**
 
    In your email, include a brief description of your interest and relevant details. Access is granted on a case-by-case basis, and you will be manually added to the corresponding Google Cloud project upon approval.
 
@@ -146,5 +145,4 @@ This project is licensed under the terms of the [MIT Licence](https://opensource
 
 
 https://eventsplatform.online/
-
 
